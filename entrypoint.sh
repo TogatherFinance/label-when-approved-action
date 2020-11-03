@@ -77,7 +77,15 @@ label_when_approved() {
         -H "${AUTH_HEADER}" \
         -H "${API_HEADER}" \
         -X DELETE \
-        "${URI}/repos/${GITHUB_REPOSITORY}/issues/${number}/labels/${REMOVE_LABEL}"
+        "${URI}/repos/${GITHUB_REPOSITORY}/issues/${number}/labels/${addLabel}"
+        
+      curl -sSL \
+        -H "${AUTH_HEADER}" \
+        -H "${API_HEADER}" \
+        -X POST \
+        -H "Content-Type: application/json" \
+        -d "{\"labels\":[\"${REMOVE_LABEL}\"]}" \
+        "${URI}/repos/${GITHUB_REPOSITORY}/issues/${number}/labels"
     fi
   done
 }
