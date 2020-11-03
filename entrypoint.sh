@@ -72,6 +72,12 @@ label_when_approved() {
       fi
 
       break
+    else
+      curl -sSL \
+        -H "${AUTH_HEADER}" \
+        -H "${API_HEADER}" \
+        -X DELETE \
+        "${URI}/repos/${GITHUB_REPOSITORY}/issues/${number}/labels/${REMOVE_LABEL}"
     fi
   done
 }
